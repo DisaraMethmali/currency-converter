@@ -1,21 +1,33 @@
 /* Default light theme */
-.app {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 50px;
-  background-color: #fff;
+/* App.css */
+
+body {
+  background-color: #fafafa; /* Light mode background */
+  transition: background-color 0.3s ease;
+}
+
+body.dark {
+  background-color: #121212; /* Dark mode background */
+}
+
+.app h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
   color: #333;
 }
 
-.form {
-  background-color: #f9f9f9;
-}
-
-/* Dark theme */
-.app.dark {
-  background-color: #333;
+.app.dark h1 {
   color: #fff;
 }
+
+.app .result h2 {
+  color: #333;
+}
+
+.app.dark .result h2 {
+  color: #fff;
+}
+
 
 .form.dark {
   background-color: #444;

@@ -1,50 +1,77 @@
 import React from 'react';
+import { TextField, MenuItem, Select, InputLabel, FormControl, Button } from '@mui/material';
 
-function CurrencyInput({
+const CurrencyInput = ({
   amount,
   setAmount,
   baseCurrency,
   setBaseCurrency,
-  targetCurrency,
-  setTargetCurrency,
+  targetCurrencies,
+  setTargetCurrencies,
   CURRENCY_LIST,
   loading,
-  handleConvert
-}) {
+  handleConvert,
+}) => {
+
+  const handleTargetCurrencyChange = (event) => {
+    setTargetCurrencies(event.target.value);
+  };
+
   return (
-    <div className="form">
-      <div className="input-group">
-        <input
-          type="number"
-          placeholder="Enter amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-      </div>
-
-      <div className="currency-selector">
-        <select onChange={(e) => setBaseCurrency(e.target.value)} value={baseCurrency}>
+    <div style={{ marginBottom: '2rem' }}>
+      <FormControl fullWidth margin="normal">
+        <InputLabel>Base Currency</InputLabel>
+        <Select
+          value={baseCurrency}
+          onChange={(e) => setBaseCurrency(e.target.value)}
+          label="Base Currency"
+        >
           {CURRENCY_LIST.map((currency) => (
-            <option key={currency} value={currency}>
+            <MenuItem key={currency} value={currency}>
               {currency}
-            </option>
+            </MenuItem>
           ))}
-        </select>
+        </Select>
+      </FormControl>
 
-        <select onChange={(e) => setTargetCurrency(e.target.value)} value={targetCurrency}>
+      <TextField
+        label="Amount"
+        variant="outlined"
+        fullWidth
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        type="number"
+        margin="normal"
+      />
+
+      <FormControl fullWidth margin="normal">
+        <InputLabel>Target Currencies</InputLabel>
+        <Select
+          multiple
+          value={targetCurrencies}
+          onChange={handleTargetCurrencyChange}
+          label="Target Currencies"
+          renderValue={(selected) => selected.join(', ')}
+        >
           {CURRENCY_LIST.map((currency) => (
-            <option key={currency} value={currency}>
+            <MenuItem key={currency} value={currency}>
               {currency}
-            </option>
+            </MenuItem>
           ))}
-        </select>
-      </div>
+        </Select>
+      </FormControl>
 
-      <button onClick={handleConvert} disabled={loading}>
-        {loading ? "Loading..." : "Convert"}
-      </button>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleConvert}
+        disabled={loading || !amount}
+      >
+        Convert
+      </Button>
     </div>
   );
-}
+};
 
 export default CurrencyInput;
