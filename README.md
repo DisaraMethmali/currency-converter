@@ -25,7 +25,7 @@ cd project_name
 ```
 
 ---
-
+Replace the API key in `src/api/currencyAPI.js` with your own API key from [exchangeratesapi.io](https://exchangeratesapi.io/).
 ### **3. Install Dependencies**
 Most React projects have a `package.json` file, which lists the required dependencies. Install these dependencies using npm :
 
