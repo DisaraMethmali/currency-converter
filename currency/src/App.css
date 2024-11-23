@@ -1,0 +1,52 @@
+/* Default light theme */
+/* App.css */
+
+body {
+  background-color: #fafafa; /* Light mode background */
+  transition: background-color 0.3s ease;
+}
+
+body.dark {
+  background-color: #121212; /* Dark mode background */
+}
+
+.app h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.app.dark h1 {
+  color: #fff;
+}
+
+.app .result h2 {
+  color: #333;
+}
+
+.app.dark .result h2 {
+  color: #fff;
+}
+
+
+.form.dark {
+  background-color: #444;
+}
+
+button {
+  background-color: #007bff;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.result {
+  background-color: #f1f1f1;
+}
+
+button.dark-mode-toggle {
+  background-color: #555;
+  color: #fff;
+  margin-top: 20px;
+}
