@@ -1,6 +1,6 @@
 # currency-converter
 
-To download and set up a React project from a Git repository, follow these steps:
+To download and set up project , follow these steps:
 
 ---
 
