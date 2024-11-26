@@ -10,9 +10,9 @@ import {
   Grid,
   CircularProgress,
 } from '@mui/material';
-import DarkModeToggle from './DarkModeToggle';
-import CurrencyInput from './CurrencyInput';
-import Result from './Result';
+import DarkModeToggle from './components/DarkModeToggle';
+import CurrencyInput from './components/CurrencyInput';
+import Result from './components/Result';
 import './App.css';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_KEY = '04eac8884a8e877fb2791768eb186882'; //  your actual API key
+  const API_KEY = process.env.REACT_APP_API_KEY ||'04eac8884a8e877fb2791768eb186882'; //  your actual API key
   const CURRENCY_LIST = ['USD', 'EUR', 'GBP', 'INR', 'AUD', 'CAD', 'JPY', 'CHF', 'CNY', 'MXN', 'BRL', 'NZD'];
 
 
@@ -43,7 +43,6 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      //api
       const response = await axios.get('http://api.exchangeratesapi.io/v1/latest', {
         params: {
           access_key: API_KEY,
@@ -68,7 +67,16 @@ function App() {
       setError('Please enter a valid amount');
       return;
     }
-
+//Memoize the computed converted amounts to improve performance:
+/*const convertedAmounts = useMemo(() => {
+    if (!amount || isNaN(amount)) return {};
+    return targetCurrencies.reduce((acc, currency) => {
+      const rate = rates[currency];
+      if (rate) acc[currency] = (amount * rate).toFixed(2);
+      return acc;
+    }, {});
+  }, [amount, rates, targetCurrencies]);*/
+  
     const newConvertedAmounts = {};
     targetCurrencies.forEach((currency) => {
       const rate = rates[currency];
