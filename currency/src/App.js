@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
   CssBaseline,
@@ -38,7 +38,7 @@ function App() {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     },
   });
-
+/*
   const fetchRates = async () => {
     setLoading(true);
     setError(null);
@@ -61,7 +61,29 @@ function App() {
   useEffect(() => {
     fetchRates();
   }, [baseCurrency, targetCurrencies]);
+*/
+const fetchRates = useCallback(async () => {
+  setLoading(true);
+  setError(null);
+  try {
+    const response = await axios.get('http://api.exchangeratesapi.io/v1/latest', {
+      params: {
+        access_key: API_KEY,
+        symbols: targetCurrencies.join(','), // Ensure target currencies are specified
+      },
+    });
+    setRates(response.data.rates);
+  } catch (err) {
+    console.error('Error fetching rates:', err);
+    setError('Failed to fetch exchange rates. Please try again later.');
+  } finally {
+    setLoading(false);
+  }
+}, [API_KEY, targetCurrencies]);
 
+useEffect(() => {
+  fetchRates();
+}, [fetchRates]);
   const handleConvert = () => {
     if (!amount || isNaN(amount)) {
       setError('Please enter a valid amount');
@@ -76,7 +98,7 @@ function App() {
       return acc;
     }, {});
   }, [amount, rates, targetCurrencies]);*/
-  
+
     const newConvertedAmounts = {};
     targetCurrencies.forEach((currency) => {
       const rate = rates[currency];
